@@ -132,7 +132,12 @@ class zookeeper::params {
   $sync_limit = 5
   $tick_time = 2000
   $use_sasl_auth = false
-  $zoo_dir = '/usr/lib/zookeeper'
+
+  if $::operatingsystem == 'Ubuntu' && $::operatingsystemmajrelease == '16.04' {
+    $zoo_dir = '/usr/share/zookeeper'
+  } else {
+    $zoo_dir = '/usr/lib/zookeeper'
+  }
   $zoo_main = 'org.apache.zookeeper.server.quorum.QuorumPeerMain'
 
   # log4j properties

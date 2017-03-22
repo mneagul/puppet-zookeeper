@@ -133,8 +133,12 @@ class zookeeper::params {
   $tick_time = 2000
   $use_sasl_auth = false
 
-  if $::operatingsystem == 'Ubuntu' && $::operatingsystemmajrelease == '16.04' {
-    $zoo_dir = '/usr/share/zookeeper'
+  if $::operatingsystem == 'Ubuntu' {
+    if $::operatingsystemmajrelease == '16.04' {
+      $zoo_dir = '/usr/share/zookeeper'
+    } else {
+      $zoo_dir = '/usr/lib/zookeeper'
+    }
   } else {
     $zoo_dir = '/usr/lib/zookeeper'
   }

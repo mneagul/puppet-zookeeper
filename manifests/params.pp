@@ -19,6 +19,10 @@ class zookeeper::params {
         'Ubuntu': {
           case $::operatingsystemmajrelease {
             '14.04': { $initstyle = 'upstart' }
+	    '16.04': {
+	        $initstyle = 'systemd'
+		$systemd_unit_dir = '/lib/systemd/system/'
+	    }
             default: { $initstyle = undef }
           }
         }
@@ -38,7 +42,10 @@ class zookeeper::params {
     'RedHat': {
       case $::operatingsystemmajrelease {
         '6': { $initstyle = 'redhat' }
-        '7': { $initstyle = 'systemd' }
+        '7': {
+	    $initstyle = 'systemd'
+	    $systemd_unit_dir = '/usr/lib/systemd/system/'
+	}
         default: { $initstyle = undef }
       }
       $_os_overrides = {
